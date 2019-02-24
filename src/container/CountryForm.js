@@ -14,7 +14,7 @@ export default class CountryForm extends Component {
 
         }).then(countries => {
             const receivedCountries = countries.map(country => {
-                return {...country} // ask about unpack
+                return {...country}
             });
             this.setState({countries: receivedCountries});
 
@@ -24,19 +24,35 @@ export default class CountryForm extends Component {
 
     state = {
         countries: [],
-        currentCountry: {}
+        currentCountry: {},
+        borders: []
     };
 
     getCountry = (countryId) => {
+        let borders= [];
         const COUNTRY_URL = "https://restcountries.eu/rest/v2/alpha/";
+
         fetch(COUNTRY_URL + countryId).then(response => {
             if (response.ok) return response.json();
             throw new Error("Something wrong with network request");
 
         }).then(country => {
+            for(let i = 0; i < country.borders.length; i++){
+                let promise = fetch(COUNTRY_URL + country.borders[i]).then(response => {
+                    //country.borders[i] represents alpha3Code of neighbor's countries
+                    if(response.ok) return response.json()
+                });
+                borders.push(promise);
+            }
+            Promise.all(borders).then(bordersCountry => {
+                // Important to call Promise.all before we setState in main .then method (which gives us a country value)
+                // Promise.all accepted array with promises
+                // We passed array to .then to map it
+                // Finally we get country's borders from object and set it to state
+                let name = bordersCountry.map(countryName => countryName.name);
+                this.setState({borders: name})
+            });
             this.setState({currentCountry: {...country}});
-            console.log(this.state.currentCountry);
-
         });
     };
 
@@ -55,7 +71,7 @@ export default class CountryForm extends Component {
                 <CountryDescription
                     capitalCity={this.state.currentCountry.capital}
                     name={this.state.currentCountry.name}
-                    borders={this.state.currentCountry.borders}
+                    borders={this.state.borders}
                 />
             </div>
         )
