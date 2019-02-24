@@ -12,7 +12,13 @@
 
 .sidebar__country {
     margin: 0;
+    width: 50%;
     padding: 10px 10px;
     text-decoration: underline;
 
+}
+
+.sidebar__country:hover {
+    cursor: pointer;
+    color: blue;
 }

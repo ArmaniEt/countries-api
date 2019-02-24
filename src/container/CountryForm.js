@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "./CountryForm.css";
 import CountriesList from "../components/CountriesList/CountriesList";
-
+import CountryDescription from "../components/CountryDescription/CountryDescription";
 
 export default class CountryForm extends Component {
 
@@ -22,7 +22,8 @@ export default class CountryForm extends Component {
     }
 
     state = {
-        countries: []
+        countries: [],
+        currentCountry: {}
     };
 
     render(){
@@ -31,6 +32,7 @@ export default class CountryForm extends Component {
                 <CountriesList
                     allCountries={this.state.countries}
                 />
+                <CountryDescription/>
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import CustomScroll from 'react-customscroll';
 import "./CountriesList.css";
 
-
+// do onclick event to all countries
 export default class CountriesList extends Component {
     render(){
         return(
