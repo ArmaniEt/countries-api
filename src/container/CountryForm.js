@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import "./CountryForm.css";
+import CountriesList from "../components/CountriesList/CountriesList";
+
 
 export default class CountryForm extends Component {
 
@@ -15,7 +17,6 @@ export default class CountryForm extends Component {
             });
             this.setState({countries: receivedCountries});
 
-
         }).catch(error => {console.log(error)});
 
     }
@@ -27,7 +28,9 @@ export default class CountryForm extends Component {
     render(){
         return(
             <div>
-
+                <CountriesList
+                    allCountries={this.state.countries}
+                />
             </div>
         )
     }

@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import "./CountriestList.css";
+import CustomScroll from 'react-customscroll';
+import "./CountriesList.css";
 
 
-class CountriestList extends Component {
+export default class CountriesList extends Component {
     render(){
         return(
-            <div>
-
-            </div>
+            <aside className="sidebar">
+                <CustomScroll>
+                    {this.props.allCountries.map(country => <p key={country.alpha3Code} className="sidebar__country">{country.name}</p>)}
+                </CustomScroll>
+            </aside>
         )
     }
 }

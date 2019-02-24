@@ -6,7 +6,7 @@ import CountryForm from './container/CountryForm';
 class App extends Component {
     render() {
         return (
-            <div>
+            <div className="container">
                 <CountryForm/>
             </div>
         );
