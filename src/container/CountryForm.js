@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import "./CountryForm.css";
-import CountriesList from "../components/CountriesList/CountriesList";
+import CustomScroll from 'react-customscroll';
 import CountryDescription from "../components/CountryDescription/CountryDescription";
+import Country from "../components/Country/Country"
 
 export default class CountryForm extends Component {
 
@@ -26,13 +27,36 @@ export default class CountryForm extends Component {
         currentCountry: {}
     };
 
+    getCountry = (countryId) => {
+        const COUNTRY_URL = "https://restcountries.eu/rest/v2/alpha/";
+        fetch(COUNTRY_URL + countryId).then(response => {
+            if (response.ok) return response.json();
+            throw new Error("Something wrong with network request");
+
+        }).then(country => {
+            this.setState({currentCountry: {...country}});
+            console.log(this.state.currentCountry);
+
+        });
+    };
+
     render(){
         return(
             <div>
-                <CountriesList
-                    allCountries={this.state.countries}
+                <aside className="sidebar">
+                    <CustomScroll>
+                        {this.state.countries.map((country) => <Country
+                            key={country.alpha3Code}
+                            name={country.name}
+                            getInfo={() => this.getCountry(country.alpha3Code)}
+                        />)}
+                    </CustomScroll>
+                </aside>
+                <CountryDescription
+                    capitalCity={this.state.currentCountry.capital}
+                    name={this.state.currentCountry.name}
+                    borders={this.state.currentCountry.borders}
                 />
-                <CountryDescription/>
             </div>
         )
     }

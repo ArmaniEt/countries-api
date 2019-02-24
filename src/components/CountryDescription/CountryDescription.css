@@ -4,5 +4,13 @@
     border: 1px solid black;
     border-radius: 5px;
     display: inline-block;
+    vertical-align: top;
+    margin-top: 20px;
     margin-left: 50px;
+}
+
+.content__text{
+
+    margin: 0;
+    display: inline;
 }

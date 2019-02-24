@@ -1,0 +1,13 @@
+.country {
+    display: inline-block;
+    margin: 0;
+    width: 50%;
+    padding: 10px 10px;
+    text-decoration: underline;
+
+}
+
+.country:hover {
+    cursor: pointer;
+    color: blue;
+}
