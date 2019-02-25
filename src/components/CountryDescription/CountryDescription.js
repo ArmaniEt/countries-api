@@ -10,13 +10,13 @@ export default class CountryDescription extends Component {
                     <p className="content__capital">Capital: {this.props.capitalCity}</p>
                     <ul>
                         Borders:
-                        {this.props.borders.map((borderCountry, index) =>
+                        {this.props.borders.length > 0 ? (this.props.borders.map((borderCountry, index) =>
                             <li className="content__border" key={index}>{borderCountry} </li>
-                        )}
+                        )) : <p>The country does not border with anyone</p>}
                     </ul>
                 </div> :
                 <div className="content">
-                    <p className="content__empty">Выберите страну...</p>
+                    <p className="content__empty">Choose a country...</p>
                 </div>
         )
     }

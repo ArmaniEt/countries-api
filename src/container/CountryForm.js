@@ -18,7 +18,9 @@ export default class CountryForm extends Component {
             });
             this.setState({countries: receivedCountries});
 
-        }).catch(error => {console.log(error)});
+        }).catch(error => {
+            console.log(error)
+        });
 
     }
 
@@ -28,23 +30,27 @@ export default class CountryForm extends Component {
         borders: []
     };
 
-    getCountry = (countryId) => {
-        let borders= [];
-        const COUNTRY_URL = "https://restcountries.eu/rest/v2/alpha/";
-
-        fetch(COUNTRY_URL + countryId).then(response => {
+    getResponse = (countryId, url) => {
+        return fetch(url + countryId).then(response => {
             if (response.ok) return response.json();
             throw new Error("Something wrong with network request");
 
-        }).then(country => {
-            for(let i = 0; i < country.borders.length; i++){
+        })
+    };
+
+    getCountry = (countryId) => {
+        const BORDERS = [];
+        const COUNTRY_URL = "https://restcountries.eu/rest/v2/alpha/";
+
+        this.getResponse(countryId, COUNTRY_URL).then(country => {
+            for (let i = 0; i < country.borders.length; i++) {
                 let promise = fetch(COUNTRY_URL + country.borders[i]).then(response => {
                     //country.borders[i] represents alpha3Code of neighbor's countries
-                    if(response.ok) return response.json()
+                    if (response.ok) return response.json()
                 });
-                borders.push(promise);
+                BORDERS.push(promise);
             }
-            Promise.all(borders).then(bordersCountry => {
+            Promise.all(BORDERS).then(bordersCountry => {
                 // Important to call Promise.all before we setState in main .then method (which gives us a country value)
                 // Promise.all accepted array with promises
                 // We passed array to .then to map it
@@ -56,8 +62,8 @@ export default class CountryForm extends Component {
         });
     };
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
                 <aside className="sidebar">
                     <CustomScroll>
