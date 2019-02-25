@@ -10,7 +10,8 @@ export default class CountryDescription extends Component {
                     <div className="flag">
                         <img className="flag__img" src={this.props.flag} alt="flag"/>
                     </div>
-                    <p className="content__capital">Capital: {this.props.capitalCity}</p>
+                    <p className="content__capital">Capital:
+                        {this.props.capitalCity ? this.props.capitalCity: "Country has not a capital"}</p>
 
                     <span className="content__text-info">Borders:</span>
                     <ul className="borders">
