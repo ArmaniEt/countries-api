@@ -27,7 +27,8 @@ export default class CountryForm extends Component {
     state = {
         countries: [],
         currentCountry: {},
-        borders: []
+        borders: [],
+        flag: ''
     };
 
     getResponse = (countryId, url) => {
@@ -50,6 +51,10 @@ export default class CountryForm extends Component {
                 });
                 BORDERS.push(promise);
             }
+
+            let flag = country.flag;
+            this.setState({flag: flag});
+
             Promise.all(BORDERS).then(bordersCountry => {
                 // Important to call Promise.all before we setState in main .then method (which gives us a country value)
                 // Promise.all accepted array with promises
@@ -78,6 +83,7 @@ export default class CountryForm extends Component {
                     capitalCity={this.state.currentCountry.capital}
                     name={this.state.currentCountry.name}
                     borders={this.state.borders}
+                    flag={this.state.flag}
                 />
             </div>
         )

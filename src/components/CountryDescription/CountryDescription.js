@@ -7,9 +7,13 @@ export default class CountryDescription extends Component {
             this.props.name ?
                 <div className="content">
                     <h2 className="content__country">{this.props.name}</h2>
+                    <div className="flag">
+                        <img className="flag__img" src={this.props.flag} alt="flag"/>
+                    </div>
                     <p className="content__capital">Capital: {this.props.capitalCity}</p>
-                    <ul>
-                        Borders:
+
+                    <span className="content__text-info">Borders:</span>
+                    <ul className="borders">
                         {this.props.borders.length > 0 ? (this.props.borders.map((borderCountry, index) =>
                             <li className="content__border" key={index}>{borderCountry} </li>
                         )) : <p>The country does not border with anyone</p>}
